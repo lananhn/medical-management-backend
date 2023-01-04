@@ -1,6 +1,6 @@
 package com.medicalmanagement.services.dto.response;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public interface PatientProjection {
     Long getPatientID();
@@ -11,4 +11,6 @@ public interface PatientProjection {
     String getPhone();
     Integer getInsurance();
     String getNurseName();
+    Date getDateCreated();
+
 }

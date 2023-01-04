@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,6 +44,7 @@ public class PatientService {
         UserEntity userEntity = userRepository.findById(dto.getNurseId()).orElseThrow(() ->
                 new Exception("Thong tin y ta chua ton tai"));
         patient.setUser(userEntity);
+        patient.setDateCreated(new Date());
         patientRepository.save(patient);
         return patient;
     }
@@ -56,6 +58,7 @@ public class PatientService {
         patient.setBirthday(dto.getBirthday());
         UserEntity userEntity = userRepository.findById(dto.getNurseId()).orElseThrow(() ->
                 new Exception("Thong tin y ta chua ton tai"));
+        patient.setUser(userEntity);
         patient.setUser(userEntity);
         patientRepository.save(patient);
         return patient;

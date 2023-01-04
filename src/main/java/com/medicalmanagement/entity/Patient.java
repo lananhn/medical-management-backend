@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,9 @@ public class Patient {
     @NotNull
     @Column(name = "insurance")
     private Integer insurance;
+    @Column(name = "date_created")
+    @Temporal(TemporalType.DATE)
+    private Date dateCreated;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ServiceRegistration> registration;
