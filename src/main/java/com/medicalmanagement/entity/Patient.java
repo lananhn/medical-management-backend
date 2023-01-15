@@ -39,5 +39,5 @@ public class Patient {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nurse_id")
-    private UserEntity user;
+    private User user;
 }

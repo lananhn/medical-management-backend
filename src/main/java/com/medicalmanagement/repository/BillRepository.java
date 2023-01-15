@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
     @Query(nativeQuery = true, value = "SELECT bills.id as billExId, bills.money_received as moneyReceived, bills.health_insurance_payment as insurancePayment, bills.surplus as surplus, bills.status as status, bills.date_created as dateCreated, service_registration.unit as unit, service_registration.quantity as quantity,\n" +
-            "patients.full_name as patientName, services.name as serviceName,\n" +
+            "patients.full_name as patientName, services.name as serviceName, \n" +
             "users.name as accountantName FROM bills\n" +
             "INNER JOIN service_registration on service_registration.id=bills.service_registration_id\n" +
             "INNER JOIN services on service_registration.service_id=services.id\n" +

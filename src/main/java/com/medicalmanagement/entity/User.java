@@ -12,7 +12,7 @@ import java.util.*;
 @Getter
 @RequiredArgsConstructor
 @Table(name = "users")
-public class UserEntity {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,8 +26,6 @@ public class UserEntity {
     private String address;
     @Column(name = "email")
     private String email;
-    @Column(name = "position")
-    private String position;
     @Column(name = "phone")
     private String phone;
     @Column(name = "status")

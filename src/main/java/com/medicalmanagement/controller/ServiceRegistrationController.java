@@ -5,14 +5,15 @@ import com.medicalmanagement.services.ServiceRegistrationService;
 import com.medicalmanagement.services.dto.UpdateRegDTO;
 import com.medicalmanagement.services.dto.request.AddRegDTO;
 import com.medicalmanagement.services.dto.response.ServiceRegistraitonProjection;
-import com.medicalmanagement.services.dto.response.ServiceRegistrationByPatient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("api/registration")
 @RequiredArgsConstructor
@@ -20,25 +21,29 @@ public class ServiceRegistrationController {
     private final ServiceRegistrationService service;
 
     @GetMapping("")
-    private ResponseEntity<List<ServiceRegistraitonProjection>> list() {
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<List<ServiceRegistraitonProjection>> list() {
         List<ServiceRegistraitonProjection> list = service.listReg();
         return ResponseEntity.ok(list);
     }
 
     @PostMapping("/add")
-    private ResponseEntity<AddRegDTO> add(@RequestBody @Valid AddRegDTO dto) {
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<AddRegDTO> add(@RequestBody @Valid AddRegDTO dto) {
         service.add(dto);
         return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/update/{id}")
-    private ResponseEntity<UpdateRegDTO> update(@PathVariable Long id, @RequestBody @Valid UpdateRegDTO dto) {
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<UpdateRegDTO> update(@PathVariable Long id, @RequestBody @Valid UpdateRegDTO dto) {
         service.update(id, dto);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/listServiceRegis/{patientId}")
-    private  ResponseEntity<List<ServiceRegistration>> listServiceByPatient(@PathVariable Long patientID) {
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<List<ServiceRegistration>> listServiceByPatient(@PathVariable Long patientID) {
         return ResponseEntity.ok(service.listServiceByPatient(patientID));
     }
 }

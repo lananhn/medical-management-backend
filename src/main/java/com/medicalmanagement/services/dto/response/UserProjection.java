@@ -9,7 +9,6 @@ public interface UserProjection {
     String getName();
     String getAddress();
     String getEmail();
-    String getPosition();
     String getPhone();
     Integer getStatus();
     Integer getRoleId();

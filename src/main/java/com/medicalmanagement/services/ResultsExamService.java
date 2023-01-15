@@ -2,7 +2,7 @@ package com.medicalmanagement.services;
 
 import com.medicalmanagement.entity.ResultExamination;
 import com.medicalmanagement.entity.ServiceRegistration;
-import com.medicalmanagement.entity.UserEntity;
+import com.medicalmanagement.entity.User;
 import com.medicalmanagement.exceptions.Exception;
 import com.medicalmanagement.repository.ResultsExamRepository;
 import com.medicalmanagement.repository.ServiceRegistrationRepository;
@@ -36,7 +36,23 @@ public class ResultsExamService {
         ServiceRegistration registration = registrationRepository.findById(dto.getServiceReg()).orElseThrow(() ->
                 new Exception("Thong tin dang ky chua ton tai"));
         resultExamination.setServiceReg(registration);
-        UserEntity user = userRepository.findById(dto.getDoctorId()).orElseThrow(() ->
+        User user = userRepository.findById(dto.getDoctorId()).orElseThrow(() ->
+                new Exception("Thong tin bac sy chua ton tai"));
+        resultExamination.setUser(user);
+        resultExamination.setDateCreated(new Date());
+        resultsExamRepository.save(resultExamination);
+        return dto;
+    }
+    @Transactional
+    public ResultsExamDTO update(Long id, ResultsExamDTO dto) {
+        ResultExamination resultExamination = resultsExamRepository.findById(id).orElseThrow(() ->
+                new Exception("Ket qua kham chua ton tai"));
+        resultExamination.setResult(dto.getResult());
+        resultExamination.setDescription(dto.getDescription());
+        ServiceRegistration registration = registrationRepository.findById(dto.getServiceReg()).orElseThrow(() ->
+                new Exception("Thong tin dang ky chua ton tai"));
+        resultExamination.setServiceReg(registration);
+        User user = userRepository.findById(dto.getDoctorId()).orElseThrow(() ->
                 new Exception("Thong tin bac sy chua ton tai"));
         resultExamination.setUser(user);
         resultExamination.setDateCreated(new Date());

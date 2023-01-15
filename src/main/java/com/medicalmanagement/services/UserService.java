@@ -3,16 +3,20 @@ package com.medicalmanagement.services;
 import com.medicalmanagement.constants.ERole;
 import com.medicalmanagement.constants.Status;
 import com.medicalmanagement.entity.Role;
-import com.medicalmanagement.entity.UserEntity;
+import com.medicalmanagement.entity.ServiceEntity;
+import com.medicalmanagement.entity.TypeOfService;
+import com.medicalmanagement.entity.User;
 import com.medicalmanagement.exceptions.Exception;
 import com.medicalmanagement.repository.RoleRepository;
 import com.medicalmanagement.repository.UserRepository;
-import com.medicalmanagement.services.dto.UserDTO;
+import com.medicalmanagement.services.dto.request.UserDTO;
 import com.medicalmanagement.services.dto.request.UpdateUserDTO;
+import com.medicalmanagement.services.dto.response.UserDto;
 import com.medicalmanagement.services.dto.response.UserProjection;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +31,10 @@ public class UserService {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder encoder;
 
-    public UserEntity findByIdUser(Long id) {
-        UserEntity user = userRepository.findById(id).orElseThrow(() ->
+    public User findByIdUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() ->
                 new Exception("Thông tin của nhân viên chưa tồn tại"));
         return user;
     }
@@ -43,13 +48,12 @@ public class UserService {
         if (userRepository.existsByUsername(userDTO.getUserName())) {
             throw new Exception("Username đã tồn tại");
         }
-            UserEntity user = new UserEntity();
+            User user = new User();
             user.setUsername(userDTO.getUserName());
             user.setName(userDTO.getName());
-            user.setPassword(userDTO.getPassWord());
+            user.setPassword(encoder.encode(userDTO.getPassWord()));
             user.setAddress(userDTO.getAddress());
             user.setEmail(userDTO.getEmail());
-            user.setPosition(userDTO.getPosition());
             user.setPhone(userDTO.getPhone());
             user.setStatus(1);
 
@@ -90,7 +94,7 @@ public class UserService {
     }
     @Transactional
     public void updateStatus(Long id) {
-        UserEntity user = findByIdUser(id);
+        User user = findByIdUser(id);
         if (user.getStatus().equals(Status.ACTIVE.getId())) {
             user.setStatus(Status.INACTIVE.getId());
             userRepository.save(user);
@@ -100,13 +104,12 @@ public class UserService {
         }
     }
     @Transactional
-    public UserEntity updateUser(Long id, UpdateUserDTO userDTO) {
-        UserEntity user = findByIdUser(id);
+    public User updateUser(Long id, UpdateUserDTO userDTO) {
+        User user = findByIdUser(id);
         user.setName(user.getName());
-        user.setPassword(userDTO.getPassWord());
+        user.setPassword(encoder.encode(userDTO.getPassWord()));
         user.setAddress(userDTO.getAddress());
         user.setEmail(userDTO.getEmail());
-        user.setPosition(userDTO.getPosition());
         user.setPhone(userDTO.getPhone());
 
         Set<String> strRoles = userDTO.getRoles();
@@ -144,4 +147,14 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
+//    @Transactional
+//    public UserDto getUserById(Long id, Long idRole) {
+//        User entity = userRepository.findById(id).orElseThrow(() ->
+//                new Exception("Chưa tồn tại thông tin của nhân viên"));
+//        Role role = roleRepository.findById(idRole).orElseThrow(() ->
+//                new Exception("Chưa tồn tại thông tin của role"));
+//        if (entity.getRoles().getId() != typeOfService.getId()) {
+//            throw new Exception("Dịch vụ không thuộc trong các loại dịch vụ");
+//        }
+//    }
 }

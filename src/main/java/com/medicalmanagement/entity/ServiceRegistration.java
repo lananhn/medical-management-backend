@@ -30,10 +30,10 @@ public class ServiceRegistration {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
-    private UserEntity user;
+    private User user;
 
-    @OneToMany(mappedBy = "serviceReg", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Bill> bills;
+    @OneToOne(mappedBy = "serviceReg", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Bill bill;
 
     @OneToOne(mappedBy = "serviceReg", cascade = CascadeType.ALL, orphanRemoval = true)
     private ResultExamination resultExam;

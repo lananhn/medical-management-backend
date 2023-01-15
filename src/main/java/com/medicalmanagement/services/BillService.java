@@ -3,7 +3,7 @@ package com.medicalmanagement.services;
 import com.medicalmanagement.constants.Status;
 import com.medicalmanagement.entity.Bill;
 import com.medicalmanagement.entity.ServiceRegistration;
-import com.medicalmanagement.entity.UserEntity;
+import com.medicalmanagement.entity.User;
 import com.medicalmanagement.exceptions.Exception;
 import com.medicalmanagement.repository.BillRepository;
 import com.medicalmanagement.repository.ServiceRegistrationRepository;
@@ -11,7 +11,6 @@ import com.medicalmanagement.repository.UserRepository;
 import com.medicalmanagement.services.dto.BillDTO;
 import com.medicalmanagement.services.dto.BillSumDTO;
 import com.medicalmanagement.services.dto.response.BillProjection;
-import com.medicalmanagement.services.dto.response.BillSumProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,9 +38,9 @@ public class BillService {
         ServiceRegistration registration = registrationRepository.findById(dto.getServiceReg()).orElseThrow(() ->
                 new Exception("Chua ton tai thong tin dang ky"));
         entity.setServiceReg(registration);
-        UserEntity userEntity = userRepository.findById(dto.getAccountantId()).orElseThrow(() ->
+        User user = userRepository.findById(dto.getAccountantId()).orElseThrow(() ->
                 new Exception("Thong tin ke toan chua ton tai"));
-        entity.setAccountantId(userEntity);
+        entity.setAccountantId(user);
         billExamRepository.save(entity);
         return dto;
     }
@@ -53,9 +52,9 @@ public class BillService {
         ServiceRegistration registration = registrationRepository.findById(dto.getServiceReg()).orElseThrow(() ->
                 new Exception("Chua ton tai thong tin dang ky"));
         bill.setServiceReg(registration);
-        UserEntity userEntity = userRepository.findById(dto.getAccountantId()).orElseThrow(() ->
+        User user = userRepository.findById(dto.getAccountantId()).orElseThrow(() ->
                 new Exception("Thong tin ke toan chua ton tai"));
-        bill.setAccountantId(userEntity);
+        bill.setAccountantId(user);
         bill.setDateCreated(new Date());
         billExamRepository.save(bill);
     }

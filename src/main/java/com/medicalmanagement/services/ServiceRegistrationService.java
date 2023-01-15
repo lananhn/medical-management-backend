@@ -3,7 +3,7 @@ package com.medicalmanagement.services;
 import com.medicalmanagement.entity.Patient;
 import com.medicalmanagement.entity.ServiceEntity;
 import com.medicalmanagement.entity.ServiceRegistration;
-import com.medicalmanagement.entity.UserEntity;
+import com.medicalmanagement.entity.User;
 import com.medicalmanagement.exceptions.Exception;
 import com.medicalmanagement.repository.PatientRepository;
 import com.medicalmanagement.repository.ServiceRegistrationRepository;
@@ -12,7 +12,6 @@ import com.medicalmanagement.repository.UserRepository;
 import com.medicalmanagement.services.dto.UpdateRegDTO;
 import com.medicalmanagement.services.dto.request.AddRegDTO;
 import com.medicalmanagement.services.dto.response.ServiceRegistraitonProjection;
-import com.medicalmanagement.services.dto.response.ServiceRegistrationByPatient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +47,7 @@ public class ServiceRegistrationService {
             Patient patient = patientRepository.findById(dto.getPatientId()).orElseThrow(() ->
                     new Exception("Thong tin benh nhan chua ton tai"));
             entity.setPatient(patient);
-            UserEntity user = userRepository.findById(dto.getDoctorId()).orElseThrow(() ->
+            User user = userRepository.findById(dto.getDoctorId()).orElseThrow(() ->
                     new Exception("Thong tin bac sy chua ton tai"));
             entity.setUser(user);
             entity.setDateCreated(new Date());
@@ -68,7 +67,7 @@ public class ServiceRegistrationService {
         Patient patient = patientRepository.findById(dto.getPatientId()).orElseThrow(() ->
                 new Exception("Thong tin benh nhan chua ton tai"));
         entity.setPatient(patient);
-        UserEntity user = userRepository.findById(dto.getDoctorId()).orElseThrow(() ->
+        User user = userRepository.findById(dto.getDoctorId()).orElseThrow(() ->
                 new Exception("Thong tin bac sy chua ton tai"));
         entity.setUser(user);
         entity.setDateCreated(new Date());

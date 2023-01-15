@@ -4,7 +4,8 @@ import com.medicalmanagement.constants.Status;
 import com.medicalmanagement.entity.TypeOfService;
 import com.medicalmanagement.exceptions.Exception;
 import com.medicalmanagement.repository.TypeOfServiceRepository;
-import com.medicalmanagement.services.dto.TypeOfServiceDTO;
+import com.medicalmanagement.services.dto.response.TypeOfServiceDto;
+import com.medicalmanagement.services.dto.request.TypeOfServiceDTO;
 import com.medicalmanagement.services.dto.request.ListTypeOfServiceDTO;
 import com.medicalmanagement.services.dto.response.TypeOfServiceProjection;
 import lombok.RequiredArgsConstructor;
@@ -60,5 +61,13 @@ public class TypeOfServiceService {
             typeOfService.setStatus(Status.ACTIVE.getId());
             typeOfServiceRepository.save(typeOfService);
         }
+    }
+    @Transactional
+    public TypeOfServiceDto findTypeById(Long id) {
+        TypeOfService typeOfService = findById(id);
+        TypeOfServiceDto dto = new TypeOfServiceDto();
+        dto.setId(typeOfService.getId());
+        dto.setName(typeOfService.getName());
+        return dto;
     }
 }

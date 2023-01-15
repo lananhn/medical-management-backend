@@ -2,10 +2,8 @@ package com.medicalmanagement.services;
 
 import com.medicalmanagement.constants.Status;
 import com.medicalmanagement.entity.Role;
-import com.medicalmanagement.entity.UserEntity;
 import com.medicalmanagement.exceptions.Exception;
 import com.medicalmanagement.repository.RoleRepository;
-import com.medicalmanagement.repository.UserRepository;
 import com.medicalmanagement.services.dto.RoleDTO;
 import com.medicalmanagement.services.dto.response.RoleProjection;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +31,6 @@ public class RoleService {
     public RoleDTO add(RoleDTO dto) {
         Role role = new Role();
         role.setName(dto.getName());
-        role.setStatus(Status.ACTIVE.getId());
         roleRepository.save(role);
         return dto;
     }
@@ -43,16 +40,5 @@ public class RoleService {
         role.setName(dto.getName());
         roleRepository.save(role);
         return dto;
-    }
-    @Transactional
-    public void updateStatus(Long id) {
-        Role role = findById(id);
-        if (role.getStatus().equals(Status.ACTIVE.getId())) {
-            role.setStatus(Status.INACTIVE.getId());
-            roleRepository.save(role);
-        } else {
-            role.setStatus(Status.ACTIVE.getId());
-            roleRepository.save(role);
-        }
     }
 }

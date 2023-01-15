@@ -1,8 +1,9 @@
 package com.medicalmanagement.controller;
 
 import com.medicalmanagement.services.UserService;
-import com.medicalmanagement.services.dto.UserDTO;
+import com.medicalmanagement.services.dto.request.UserDTO;
 import com.medicalmanagement.services.dto.request.UpdateUserDTO;
+import com.medicalmanagement.services.dto.response.UserDto;
 import com.medicalmanagement.services.dto.response.UserProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("")
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserProjection>> listUser() {
         List<UserProjection> list = userService.listUser();
         return ResponseEntity.ok(list);
@@ -45,4 +47,10 @@ public class UserController {
         userService.updateUser(id, dto);
         return ResponseEntity.ok(dto);
     }
+
+//    @GetMapping("/{id}/roles/{idRole}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<UserDto> getUserById(@PathVariable Long id, @PathVariable Long idRole) {
+//        return ResponseEntity.ok(userService.)
+//    }
 }

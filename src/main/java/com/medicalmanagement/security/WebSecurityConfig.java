@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -35,12 +34,12 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/user/**").permitAll()
-                .antMatchers("/api/patient/**").permitAll()
-                .antMatchers("/api/service/**").permitAll()
+                .antMatchers("/api/patients/**").permitAll()
+                .antMatchers("/api/services/**").permitAll()
                 .antMatchers("/api/type-of-service/**").permitAll()
-                .antMatchers("/api/role/**").permitAll()
+                .antMatchers("/api/roles/**").permitAll()
                 .antMatchers("/api/registration/**").permitAll()
-                .antMatchers("/api/bill/**").permitAll()
+                .antMatchers("/api/bills/**").permitAll()
                 .antMatchers("/api/results-exam/**").permitAll()
                 .antMatchers("/api/login/**").permitAll()
 

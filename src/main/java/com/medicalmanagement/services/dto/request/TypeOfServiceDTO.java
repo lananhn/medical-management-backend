@@ -1,4 +1,4 @@
-package com.medicalmanagement.services.dto;
+package com.medicalmanagement.services.dto.request;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

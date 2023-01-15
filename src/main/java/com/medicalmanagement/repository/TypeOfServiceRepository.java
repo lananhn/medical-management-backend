@@ -13,4 +13,5 @@ public interface TypeOfServiceRepository extends JpaRepository<TypeOfService, Lo
     @Query(nativeQuery = true, value = "SELECT * FROM type_of_service tfs WHERE lower(tfs.name) LIKE lower(CONVERT(lower(?1), BINARY)) ")
     List<TypeOfService> findServiceByName(String name);
     List<TypeOfServiceProjection> findByOrderByNameAsc();
+
 }

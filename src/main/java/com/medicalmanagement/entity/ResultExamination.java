@@ -3,8 +3,6 @@ package com.medicalmanagement.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -30,5 +28,5 @@ public class ResultExamination {
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
-    private UserEntity user;
+    private User user;
 }

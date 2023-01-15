@@ -21,9 +21,6 @@ public class Role {
     @Column(name = "name")
     private ERole name;
 
-    @Column(name = "status")
-    private Integer status;
-
     @ManyToMany(mappedBy = "roles")
-    private Set<UserEntity> userEntities;
+    private Set<User> userEntities;
 }

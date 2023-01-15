@@ -2,7 +2,7 @@ package com.medicalmanagement.services;
 
 import com.medicalmanagement.constants.InsuranceStatus;
 import com.medicalmanagement.entity.Patient;
-import com.medicalmanagement.entity.UserEntity;
+import com.medicalmanagement.entity.User;
 import com.medicalmanagement.exceptions.Exception;
 import com.medicalmanagement.repository.PatientRepository;
 import com.medicalmanagement.repository.UserRepository;
@@ -41,9 +41,9 @@ public class PatientService {
         patient.setPhone(dto.getPhone());
         patient.setBirthday(dto.getBirthday());
         patient.setInsurance(dto.getInsurance());
-        UserEntity userEntity = userRepository.findById(dto.getNurseId()).orElseThrow(() ->
+        User user = userRepository.findById(dto.getNurseId()).orElseThrow(() ->
                 new Exception("Thong tin y ta chua ton tai"));
-        patient.setUser(userEntity);
+        patient.setUser(user);
         patient.setDateCreated(new Date());
         patientRepository.save(patient);
         return patient;
@@ -56,10 +56,10 @@ public class PatientService {
         patient.setAddress(dto.getAddress());
         patient.setPhone(dto.getPhone());
         patient.setBirthday(dto.getBirthday());
-        UserEntity userEntity = userRepository.findById(dto.getNurseId()).orElseThrow(() ->
+        User user = userRepository.findById(dto.getNurseId()).orElseThrow(() ->
                 new Exception("Thong tin y ta chua ton tai"));
-        patient.setUser(userEntity);
-        patient.setUser(userEntity);
+        patient.setUser(user);
+        patient.setUser(user);
         patientRepository.save(patient);
         return patient;
     }

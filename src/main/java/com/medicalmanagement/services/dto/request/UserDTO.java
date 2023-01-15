@@ -1,4 +1,4 @@
-package com.medicalmanagement.services.dto;
+package com.medicalmanagement.services.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,10 +25,7 @@ public class UserDTO {
     @Size(max = 255)
     private String email;
     @NotBlank
-    @Size(max = 255)
-    private String position;
     @Size(max = 12)
     private String phone;
-    private Integer status;
     private Set<String> roles;
 }

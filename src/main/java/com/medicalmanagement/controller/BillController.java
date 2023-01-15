@@ -1,26 +1,27 @@
 package com.medicalmanagement.controller;
 
-import com.medicalmanagement.entity.Bill;
 import com.medicalmanagement.services.BillService;
 import com.medicalmanagement.services.dto.BillDTO;
 import com.medicalmanagement.services.dto.BillSumDTO;
 import com.medicalmanagement.services.dto.response.BillProjection;
-import com.medicalmanagement.services.dto.response.BillSumProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/bill")
+@RequestMapping("/api/bills")
 public class BillController {
     private final BillService service;
 
     @GetMapping("")
-    private ResponseEntity<List<BillProjection>> list() {
+    @PreAuthorize("hasRole('ACCOUNTANT')")
+    public ResponseEntity<List<BillProjection>> list() {
         return ResponseEntity.ok(service.list());
     }
 
@@ -30,25 +31,29 @@ public class BillController {
 //    }
 
     @PostMapping("/add")
-    private ResponseEntity<BillDTO> add(@RequestBody @Valid BillDTO dto) {
+    @PreAuthorize("hasRole('ACCOUNTANT')")
+    public ResponseEntity<BillDTO> add(@RequestBody @Valid BillDTO dto) {
         service.add(dto);
         return ResponseEntity.ok(dto);
     }
 
-    @PutMapping("/update")
-    private ResponseEntity<String> update(@PathVariable Long id, @RequestBody @Valid BillDTO dto) {
+    @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ACCOUNTANT')")
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody @Valid BillDTO dto) {
         service.update(id, dto);
         return ResponseEntity.ok("Cap nhat thanh cong");
     }
 
     @PutMapping("/updateSum/{id}")
-    private ResponseEntity<String> updateSum(@PathVariable Long id, @RequestBody @Valid BillSumDTO dto) {
+    @PreAuthorize("hasRole('ACCOUNTANT')")
+    public ResponseEntity<String> updateSum(@PathVariable Long id, @RequestBody @Valid BillSumDTO dto) {
         service.updateBillSum(id, dto);
         return ResponseEntity.ok("Cap nhat thanh cong");
     }
 
     @PutMapping("/updateStatusMoney/{id}")
-    private ResponseEntity<String> updateStatusMoney(@PathVariable Long id) {
+    @PreAuthorize("hasRole('ACCOUNTANT')")
+    public ResponseEntity<String> updateStatusMoney(@PathVariable Long id) {
         service.updateStatusMoney(id);
         return ResponseEntity.ok("Cap nhat thanh cong");
     }

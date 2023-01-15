@@ -27,4 +27,5 @@ public class ServiceEntity {
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ServiceRegistration> serviceReg;
 
+
 }

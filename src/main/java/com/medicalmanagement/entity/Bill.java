@@ -29,11 +29,11 @@ public class Bill {
     @Column(name = "status")
     private Integer status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "service_registration_id")
     private ServiceRegistration serviceReg;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accountant_id")
-    private UserEntity accountantId;
+    private User accountantId;
 }
