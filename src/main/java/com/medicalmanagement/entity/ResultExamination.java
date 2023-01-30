@@ -26,7 +26,7 @@ public class ResultExamination {
     @JoinColumn(name = "service_registration_id")
     private ServiceRegistration serviceReg;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
     private User user;
 }

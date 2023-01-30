@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -22,12 +23,8 @@ public class UpdateUserDTO {
     @NotBlank
     @Size(max = 255)
     private String email;
-    @NotBlank
-    @Size(max = 255)
-    private String position;
     @Size(max = 12)
     private String phone;
+    @NotNull
     private Integer status;
-    @NotEmpty
-    private Set<String> roles;
 }

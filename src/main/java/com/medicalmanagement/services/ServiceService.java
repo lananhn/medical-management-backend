@@ -64,21 +64,16 @@ public class ServiceService {
             serviceRepository.save(entity);
         }
     }
-    public ServiceDto findServiceById(Long id, Long idType) {
+    public ServiceDto findServiceById(Long id) {
         ServiceEntity entity = serviceRepository.findById(id).orElseThrow(() ->
                 new Exception("Chưa tồn tại thông tin của dịch vụ"));
-        TypeOfService typeOfService = typeOfServiceRepository.findById(idType).orElseThrow(() ->
-                new Exception("Chưa tồn tại thông tin của loại dịch vụ"));
-        if (entity.getTypeOfService().getId() != typeOfService.getId()) {
-            throw new Exception("Dịch vụ không thuộc trong các loại dịch vụ");
-        }
         ServiceDto dto = new ServiceDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setUnit(entity.getUnit());
         dto.setPrice(entity.getPrice());
         dto.setStatus(entity.getStatus());
-        dto.setTypeOfService(typeOfService.getId());
+        dto.setTypeOfService(entity.getTypeOfService().getId());
         return dto;
     }
 

@@ -10,4 +10,5 @@ public interface ServiceRegistraitonProjection {
     String getUnit();
     Integer getQuantity();
     Date getDateCreated();
+    Long getDoctorId();
 }

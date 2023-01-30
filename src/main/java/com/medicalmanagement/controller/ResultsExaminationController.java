@@ -1,7 +1,8 @@
 package com.medicalmanagement.controller;
 
 import com.medicalmanagement.services.ResultsExamService;
-import com.medicalmanagement.services.dto.ResultsExamDTO;
+import com.medicalmanagement.services.dto.request.ResultsExamDTO;
+import com.medicalmanagement.services.dto.response.ResultsExamDto;
 import com.medicalmanagement.services.dto.response.ResultsExamProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,5 +37,11 @@ public class ResultsExaminationController {
     public ResponseEntity<String> update(@RequestBody @Valid ResultsExamDTO dto, @PathVariable Long id) {
         resultsExamService.update(id, dto);
         return ResponseEntity.ok("Cap nhat thanh cong");
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<ResultsExamDto> getResultById(@PathVariable Long id) {
+        return ResponseEntity.ok(resultsExamService.findResultById(id));
     }
 }

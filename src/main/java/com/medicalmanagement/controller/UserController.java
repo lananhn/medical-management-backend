@@ -48,9 +48,13 @@ public class UserController {
         return ResponseEntity.ok(dto);
     }
 
-//    @GetMapping("/{id}/roles/{idRole}")
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+//    @GetMapping("/role")
 //    @PreAuthorize("hasRole('ADMIN')")
-//    public ResponseEntity<UserDto> getUserById(@PathVariable Long id, @PathVariable Long idRole) {
-//        return ResponseEntity.ok(userService.)
-//    }
+//    public ResponseEntity<>
 }

@@ -4,6 +4,7 @@ import com.medicalmanagement.entity.ServiceRegistration;
 import com.medicalmanagement.services.ServiceRegistrationService;
 import com.medicalmanagement.services.dto.UpdateRegDTO;
 import com.medicalmanagement.services.dto.request.AddRegDTO;
+import com.medicalmanagement.services.dto.response.RegistrationDto;
 import com.medicalmanagement.services.dto.response.ServiceRegistraitonProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +46,11 @@ public class ServiceRegistrationController {
     @PreAuthorize("hasRole('DOCTOR')")
     public ResponseEntity<List<ServiceRegistration>> listServiceByPatient(@PathVariable Long patientID) {
         return ResponseEntity.ok(service.listServiceByPatient(patientID));
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public ResponseEntity<RegistrationDto> getRegById(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok(service.findRegById(id));
     }
 }

@@ -12,5 +12,6 @@ public interface PatientProjection {
     Integer getInsurance();
     String getNurseName();
     Date getDateCreated();
+    Long getNurseId();
 
 }

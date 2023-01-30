@@ -17,10 +17,7 @@ public class UpdateRegDTO {
     private String unit;
     @NotNull
     private Integer quantity;
-    @NotNull
     private Long patientId;
-    @NotEmpty
     private Long serviceId;
-    @NotNull
     private Long doctorId;
 }

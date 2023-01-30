@@ -5,19 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class RegistrationDto {
     private Long id;
-    private String passWord;
-    private String name;
-    private String address;
-    private String email;
-    private String phone;
-    private Integer status;
-    private Set<String> roles;
+    private String unit;
+    private Integer quantity;
+    private Long patientId;
+    private Long serviceId;
+    private Long doctorId;
 }

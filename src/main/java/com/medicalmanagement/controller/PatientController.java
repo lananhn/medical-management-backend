@@ -1,8 +1,10 @@
 package com.medicalmanagement.controller;
 
 import com.medicalmanagement.services.PatientService;
-import com.medicalmanagement.services.dto.PatientDTO;
+import com.medicalmanagement.services.dto.request.PatientDTO;
+import com.medicalmanagement.services.dto.response.PatientDto;
 import com.medicalmanagement.services.dto.response.PatientProjection;
+import com.medicalmanagement.services.dto.response.ServiceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,5 +46,11 @@ public class PatientController {
     public ResponseEntity<String> updateInsurance(@PathVariable long id) {
         patientService.updateInsurance(id);
         return ResponseEntity.ok("Cập nhật thành công");
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('NURSE')")
+    public ResponseEntity<PatientDto> getPatientById(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok(patientService.findPatientById(id));
     }
 }

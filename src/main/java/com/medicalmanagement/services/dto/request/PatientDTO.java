@@ -1,4 +1,4 @@
-package com.medicalmanagement.services.dto;
+package com.medicalmanagement.services.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

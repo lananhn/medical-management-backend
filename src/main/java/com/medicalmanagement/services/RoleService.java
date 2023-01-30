@@ -24,7 +24,7 @@ public class RoleService {
     }
     @Transactional
     public List<RoleProjection> list() {
-        List<RoleProjection> listRole = roleRepository.findByOrderByNameAsc();
+        List<RoleProjection> listRole = roleRepository.listRoles();
         return listRole;
     }
     @Transactional

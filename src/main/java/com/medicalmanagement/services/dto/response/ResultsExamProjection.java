@@ -10,4 +10,6 @@ public interface ResultsExamProjection {
     String getServiceName();
     String getPatientName();
     String getDoctorName();
+    Long getDoctorId();
+    Long getServiceReg();
 }

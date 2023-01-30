@@ -19,4 +19,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "INNER JOIN user_roles on user_roles.user_id=users.id\n" +
             "INNER JOIN roles on user_roles.role_id=roles.id")
     List<UserProjection> listUser();
+//    @Query(nativeQuery = true, value = "SELECT ")
 }

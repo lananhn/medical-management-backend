@@ -7,7 +7,8 @@ import com.medicalmanagement.exceptions.Exception;
 import com.medicalmanagement.repository.ResultsExamRepository;
 import com.medicalmanagement.repository.ServiceRegistrationRepository;
 import com.medicalmanagement.repository.UserRepository;
-import com.medicalmanagement.services.dto.ResultsExamDTO;
+import com.medicalmanagement.services.dto.request.ResultsExamDTO;
+import com.medicalmanagement.services.dto.response.ResultsExamDto;
 import com.medicalmanagement.services.dto.response.ResultsExamProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,18 @@ public class ResultsExamService {
         resultExamination.setUser(user);
         resultExamination.setDateCreated(new Date());
         resultsExamRepository.save(resultExamination);
+        return dto;
+    }
+    @Transactional
+    public ResultsExamDto findResultById(Long id) {
+        ResultExamination resultExamination = resultsExamRepository.findById(id).orElseThrow(() ->
+                new Exception("Ket qua kham chua ton tai"));
+        ResultsExamDto dto = new ResultsExamDto();
+        dto.setId(resultExamination.getId());
+        dto.setResult(resultExamination.getResult());
+        dto.setDescription(resultExamination.getDescription());
+        dto.setServiceReg(resultExamination.getServiceReg().getId());
+        dto.setDoctorId(resultExamination.getUser().getId());
         return dto;
     }
 }

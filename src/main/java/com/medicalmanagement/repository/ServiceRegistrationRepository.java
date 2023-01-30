@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface ServiceRegistrationRepository extends JpaRepository<ServiceRegistration, Long> {
-    @Query(nativeQuery = true, value = "SELECT service_registration.id as regId, service_registration.unit as unit, service_registration.quantity as quantity, service_registration.date_created as dateCreated,\n" +
+    @Query(nativeQuery = true, value = "SELECT service_registration.id as regId, service_registration.unit as unit, service_registration.patient_id as patientId, service_registration.service_id as serviceId, service_registration.doctor_id as doctorId, service_registration.quantity as quantity, service_registration.date_created as dateCreated,\n" +
             "patients.full_name as patientName, services.name as serviceName,\n" +
             "users.name as doctorName FROM service_registration\n" +
             "INNER JOIN services on service_registration.service_id=services.id\n" +

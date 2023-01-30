@@ -12,5 +12,5 @@ public interface UserProjection {
     String getPhone();
     Integer getStatus();
     Integer getRoleId();
-    List<String> getRoleName();
+    String getRoleName();
 }

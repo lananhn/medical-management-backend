@@ -21,7 +21,7 @@ public class ServiceController {
     private final ServiceService service;
 
     @GetMapping("")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('NURSE')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('NURSE') or hasRole('DOCTOR')")
     public ResponseEntity<List<ServiceProjection>> list() {
         List<ServiceProjection> listServices = service.list();
         return ResponseEntity.ok(listServices);
@@ -48,9 +48,9 @@ public class ServiceController {
         return ResponseEntity.ok("Cap nhat thanh cong");
     }
 
-    @GetMapping("/{id}/type/{idType}")
+    @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ServiceDto> getServiceById(@PathVariable(value = "id") Long id, @PathVariable(value = "idType") Long idType) {
-        return ResponseEntity.ok(service.findServiceById(id, idType));
+    public ResponseEntity<ServiceDto> getServiceById(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok(service.findServiceById(id));
     }
 }

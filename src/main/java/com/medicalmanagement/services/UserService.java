@@ -28,7 +28,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Transactional
 public class UserService {
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+//    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder encoder;
@@ -111,50 +111,22 @@ public class UserService {
         user.setAddress(userDTO.getAddress());
         user.setEmail(userDTO.getEmail());
         user.setPhone(userDTO.getPhone());
-
-        Set<String> strRoles = userDTO.getRoles();
-        Set<Role> roles = new HashSet<>();
-
-        strRoles.forEach(role -> {
-                    switch (role) {
-                        case "admin":
-                            Role roleAdmin = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                    .orElseThrow(() -> new Exception("Không tìm thấy role"));
-                            roles.add(roleAdmin);
-                            break;
-                        case "doctor":
-                            Role roleDoctor = roleRepository.findByName(ERole.ROLE_DOCTOR)
-                                    .orElseThrow(() -> new Exception("Không tìm thấy role"));
-                            roles.add(roleDoctor);
-                            break;
-                        case "accountant":
-                            Role roleAccountant = roleRepository.findByName(ERole.ROLE_ACCOUNTANT)
-                                    .orElseThrow(() -> new Exception("Không tìm thấy role"));
-                            roles.add(roleAccountant);
-                            break;
-                        case "nurse":
-                            Role roleNurse = roleRepository.findByName(ERole.ROLE_NURSE)
-                                    .orElseThrow(() -> new Exception("Không tìm thấy role"));
-                            roles.add(roleNurse);
-                        default:
-                            Role roleNurse2 = roleRepository.findByName(ERole.ROLE_NURSE)
-                                    .orElseThrow(() -> new Exception("Không tìm thấy role"));
-                            roles.add(roleNurse2);
-                    }
-                }
-        );
-        user.setRoles(roles);
+        user.setStatus(userDTO.getStatus());
         userRepository.save(user);
         return user;
     }
-//    @Transactional
-//    public UserDto getUserById(Long id, Long idRole) {
-//        User entity = userRepository.findById(id).orElseThrow(() ->
-//                new Exception("Chưa tồn tại thông tin của nhân viên"));
-//        Role role = roleRepository.findById(idRole).orElseThrow(() ->
-//                new Exception("Chưa tồn tại thông tin của role"));
-//        if (entity.getRoles().getId() != typeOfService.getId()) {
-//            throw new Exception("Dịch vụ không thuộc trong các loại dịch vụ");
-//        }
-//    }
+    @Transactional
+    public UserDto getUserById(Long id) {
+        User entity = userRepository.findById(id).orElseThrow(() ->
+                new Exception("Chưa tồn tại thông tin của nhân viên"));
+        UserDto dto = new UserDto();
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setAddress(entity.getAddress());
+        dto.setEmail(entity.getEmail());
+        dto.setPhone(entity.getPhone());
+        dto.setPassWord(entity.getPassword());
+        dto.setStatus(entity.getStatus());
+        return dto;
+    }
 }

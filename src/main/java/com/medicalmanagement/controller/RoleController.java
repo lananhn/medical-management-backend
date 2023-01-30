@@ -19,21 +19,21 @@ public class RoleController {
 
     @GetMapping("")
     @PreAuthorize("hasRole('ADMIN')")
-    private ResponseEntity<List<RoleProjection>> list() {
+    public ResponseEntity<List<RoleProjection>> list() {
         List<RoleProjection> listRoles = roleService.list();
         return ResponseEntity.ok(listRoles);
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
-    private ResponseEntity<RoleDTO> add(RoleDTO dto) {
+    public ResponseEntity<RoleDTO> add(RoleDTO dto) {
         roleService.add(dto);
         return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    private ResponseEntity<RoleDTO> update(@PathVariable Long id, RoleDTO dto) {
+    public ResponseEntity<RoleDTO> update(@PathVariable Long id, RoleDTO dto) {
         roleService.update(id, dto);
         return ResponseEntity.ok(dto);
     }
